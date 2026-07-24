@@ -14,13 +14,19 @@ export default function Dashboard() {
     const peliculas = useAppSelector((state)=> state.pelicula);
 
     const dataGrafica = peliculas.list.map((pelicula) => {
+        
         const reservasDePelicula = reservas.list.filter(
-            (reserva) => reserva.peliculaID === pelicula.id
-        ).length;
-
+            (reserva) => {
+                return reserva.peliculaID === pelicula.id
+            }
+        );
+        let cantidadReserva = 0;
+        reservasDePelicula.forEach(reserva => {
+            cantidadReserva += reserva.asientos.length 
+        })
         return {
             nombre: pelicula.nombre, 
-            cantidad: reservasDePelicula
+            cantidad: cantidadReserva
         };
     });
 

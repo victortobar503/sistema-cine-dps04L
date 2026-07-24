@@ -231,6 +231,7 @@ const styles: Record<string, React.CSSProperties> = {
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
+        gap: "15px",
         borderTop: "1px solid var(--surface-border)",
         paddingTop: "20px",
     },

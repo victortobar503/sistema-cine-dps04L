@@ -11,6 +11,7 @@ import "./style.css";
 import { Asiento } from "../types/asiento";
 import { useAppDispatch, useAppSelector } from "../redux/hook";
 import { apartarAsiento } from "../redux/slices/salasSlice";
+import FormularioReserva from "../components/FormularioReserva";
 
 export default function RegistrarVenta() {
     const sala = useAppSelector((state)=> state.sala)
@@ -38,6 +39,12 @@ export default function RegistrarVenta() {
         setAsientos(asientosID);
         setPaso(4);
     };
+
+    const handleReserva = (nombreUsuario: string, reservaID: string) =>{
+        console.log(nombreUsuario);
+        console.log(reservaID);
+        setPaso(1);
+    }
     const volverAtras = () => {
         setPaso((prev) => prev - 1);
     };
@@ -92,16 +99,15 @@ export default function RegistrarVenta() {
                     </>
                 )}
 
-                {/* Paso 4: Confirmación y Generación de Reserva */}
+                
                 {paso === 4 && (
                     <>
-                        <h2>Generación de reserva</h2>
-                        <div style={{ display: 'flex', gap: '10px', marginTop: '20px' }}>
+                        <FormularioReserva pelicula={peliculaSeleccionada as Pelicula} salaID={peliculaSeleccionada?.salaID as number } asientosID={asientos}
+                        onSubmit={handleReserva}
+                        />
+                        <div style={{ display: 'flex', gap: '10px', marginTop: '20px', flexWrap:"wrap", justifyContent: "center" }}>
                             <ButtonGeneric color="#64748b"width="350px" onClickBtn={volverAtras}>
                                 Volver
-                            </ButtonGeneric>
-                            <ButtonGeneric color="var(--success)">
-                                Confirmar Venta
                             </ButtonGeneric>
                         </div>
                     </>

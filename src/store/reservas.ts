@@ -16,7 +16,7 @@ export const reservas: Reserva[] = [
   {
     Id: 2,
     usuarioID: 102,
-    // Sin nombreUsuario para mantenerlo opcional
+    nombreUsuario: "Josue",
     total: 5.50, // Compró 1 boleto
     horaInicio: "10:00",
     horaFinalizacion: "11:36",

@@ -4,6 +4,7 @@ import { Sala } from "@/app/types/sala";
 import { Asiento } from "@/app/types/asiento";
 import { act } from "react";
 import { clearError } from "./peliculasSlice";
+import { agregarReserva } from "./reservasSlice";
 interface SalasState{
     list: Sala[],
     error: string | null
@@ -62,7 +63,25 @@ const salasSlice = createSlice(
             clearError: (state)=>{
                 state.error = null
             }
+        }, 
+        extraReducers: (builder) => {
+            builder.addCase(agregarReserva, (state, action) => {
+                const { usuarioID, asientos } = action.payload.reserva;
+                const sala = state.list.find(sala => sala.id === action.payload.salaID);
+
+                // 'asientos' trae los códigos (ej. ["A1", "A2"])
+                asientos.forEach(codigoAsiento => {
+                    // CAMBIO AQUÍ: Buscar por 'codigo' en lugar de 'id'
+                    const asientoSala = sala?.asientos?.find(asi => asi.codigo === codigoAsiento);
+                    
+                    if (asientoSala) {
+                        asientoSala.usuarioID = usuarioID; 
+                        asientoSala.ocupado = true; // Opcional: asegurarte de que quede marcado como ocupado
+                    }
+                });
+            });
         }
+        
     }
 )
 

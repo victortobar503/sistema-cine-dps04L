@@ -59,7 +59,7 @@ export default function TablaPelicula({onClick}: TablaProp) {
       display: "grid",
       gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))",
       gap: "24px",
-      width: "100%",
+      width: "50vw",
     },
 
     peliculaCard: {

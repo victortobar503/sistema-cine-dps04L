@@ -8,30 +8,22 @@ export default function Header(){
                 <ul>
                     <li>
                         <Link href='/'>
-                            <ButtonGeneric color = "">
-                                Inicio
-                            </ButtonGeneric>
+                            Inicio
                         </Link>
                     </li>
                     <li>
                         <Link href='/peliculas'>
-                            <ButtonGeneric color = "">
-                                Peliculas
-                            </ButtonGeneric>
+                           Peliculas
                         </Link>
                     </li>
                     <li>
                         <Link href='/historial-ventas'>
-                            <ButtonGeneric color = "">
-                                Historial de Ventas
-                            </ButtonGeneric>
+                            Historial de Ventas
                         </Link>
                     </li>
                     <li>
                         <Link href='/dashboard'>
-                            <ButtonGeneric color = "">
-                                Dashboard
-                            </ButtonGeneric>
+                            Dashboard
                         </Link>
                     </li>
                 </ul>
