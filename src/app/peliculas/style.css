@@ -1,0 +1,186 @@
+/* --- MÓDULO DE GESTIÓN DE PELÍCULAS --- */
+
+.peliculas-page-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 40px;
+}
+
+.peliculas-page-header h1 {
+  margin: 0;
+  font-size: 2rem;
+  color: var(--foreground);
+}
+
+.peliculas-page-header small {
+  color: var(--text-muted);
+}
+
+/* Formulario de registro/edición */
+.form-registro-pelicula {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  align-items: end;
+}
+
+.form-registro-pelicula label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.form-registro-pelicula input,
+.form-registro-pelicula select {
+  padding: 0.65rem 0.85rem;
+  border-radius: 8px;
+  border: 1px solid var(--surface-border);
+  background-color: var(--background);
+  color: var(--foreground);
+  font-size: 0.95rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.form-registro-pelicula input:focus,
+.form-registro-pelicula select:focus {
+  border-color: var(--primary);
+}
+
+.form-registro-pelicula .form-acciones {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.form-error {
+  grid-column: 1 / -1;
+  background-color: var(--success-light);
+  color: #dc2626;
+  border-left: 4px solid #dc2626;
+  padding: 0.75rem 1rem;
+  border-radius: 0 8px 8px 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* Buscador */
+.buscador-input {
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--surface-border);
+  background-color: var(--surface);
+  color: var(--foreground);
+  font-size: 0.95rem;
+  font-family: inherit;
+  outline: none;
+  width: 100%;
+  max-width: 420px;
+  transition: border-color 0.2s ease;
+}
+
+.buscador-input:focus {
+  border-color: var(--primary);
+}
+
+/* Filtros */
+.filtros-container {
+  background-color: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+}
+
+.filtros-container select {
+  padding: 0.55rem 0.85rem;
+  border-radius: 8px;
+  border: 1px solid var(--surface-border);
+  background-color: var(--background);
+  color: var(--foreground);
+  font-size: 0.9rem;
+  font-family: inherit;
+  outline: none;
+}
+
+.filtros-container button {
+  padding: 0.55rem 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--surface-border);
+  background-color: var(--background);
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filtros-container button:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+/* Tabla de gestión de películas */
+.tabla-gestion-peliculas {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.tabla-gestion-peliculas thead th {
+  text-align: left;
+  padding: 0.85rem 1rem;
+  background-color: var(--primary-light);
+  color: var(--primary);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 700;
+}
+
+.tabla-gestion-peliculas thead th:first-child {
+  border-radius: 8px 0 0 8px;
+}
+
+.tabla-gestion-peliculas thead th:last-child {
+  border-radius: 0 8px 8px 0;
+}
+
+.tabla-gestion-peliculas tbody td {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--surface-border);
+  color: var(--foreground);
+}
+
+.tabla-gestion-peliculas tbody tr:hover {
+  background-color: var(--primary-light);
+}
+
+.badge-estado {
+  display: inline-block;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.badge-estado-activa {
+  background-color: var(--success-light);
+  color: var(--success);
+}
+
+.badge-estado-inactiva {
+  background-color: var(--primary-light);
+  color: var(--text-muted);
+}
+
+.fila-acciones {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
