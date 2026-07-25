@@ -1,34 +1,97 @@
-//Acá irá la gestion de peliculas! Modulo 1
-//Modulo 5
-//Modulo 6
 "use client";
-import React, { CSSProperties } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useAppDispatch, useAppSelector } from '../redux/hook';
-import { agregarPelicula, eliminarPelicula } from '../redux/slices/peliculasSlice';
-import { salas } from '@/store/salas';
-import { apartarAsiento } from '../redux/slices/salasSlice';
 
+import { CSSProperties, useMemo, useState } from "react";
+import { useAppSelector } from "@/app/redux/hook";
+import { Pelicula } from "@/app/types/pelicula";
+import FormularioRegistroPelicula from "@/app/components/FormularioRegistroPelicula";
+import TablaGestionPeliculas from "@/app/components/TablaGestionPelicula";
+import Buscador from "@/app/components/Buscador";
+import Filtros, { FiltrosState } from "@/app/components/Filtros";
 
-//NUNCA SE MUTA DESDE ESTA FUNCION!. POR QUE SI NO REACT QUIERE VOLVER A CONSTRUIR TODO Y VALE VEINTE
-export default function MoviePage() {
+const filtrosIniciales: FiltrosState = {
+    genero: "todos",
+    clasificacion: "todas",
+    salaID: 0,
+    estado: "todas",
+};
 
-  const pelicula = useAppSelector((state) => state.pelicula);
-  const sala = useAppSelector((state)=> state.sala)
-  const dispatch = useAppDispatch();
+export default function PeliculasPage() {
+    const peliculas = useAppSelector(state => state.pelicula.list);
+    const salas = useAppSelector(state => state.sala.list);
 
-  const borrar = ()=>{dispatch(agregarPelicula({id:"ads",nombre: "El reino delpepe", genero: "Mierda", duracion: 30, clasificacion: "A", horaInicio: "6:00", salaID: 1, precio: 7, estado: true}));}
-  console.log(sala.list);
-  
-  return (
-    <>
-      <header className="dashboard-header">
-        <h1 onClick={borrar}>Gestion de Peliculas</h1>
-      </header>
-      {sala.error ? "<p>"+sala.error+"</p>" : ""}
-    </>
-   
-  );
+    const [busqueda, setBusqueda] = useState("");
+    const [filtros, setFiltros] = useState<FiltrosState>(filtrosIniciales);
+    const [peliculaEditar, setPeliculaEditar] = useState<Pelicula | null>(null);
+
+    const peliculasFiltradas = useMemo(() => {
+        return peliculas.filter(p => {
+            const sala = salas.find(s => s.id === p.salaID);
+
+            const coincideBusqueda = busqueda.trim() === "" || [
+                p.nombre,
+                p.genero,
+                p.clasificacion,
+                sala?.nombre ?? "",
+            ].some(campo => campo.toLowerCase().includes(busqueda.toLowerCase()));
+
+            const coincideGenero = filtros.genero === "todos" || p.genero === filtros.genero;
+            const coincideClasificacion = filtros.clasificacion === "todas" || p.clasificacion === filtros.clasificacion;
+            const coincideSala = filtros.salaID === 0 || p.salaID === filtros.salaID;
+            const coincideEstado =
+                filtros.estado === "todas" ||
+                (filtros.estado === "activa" && p.estado) ||
+                (filtros.estado === "inactiva" && !p.estado);
+
+            return coincideBusqueda && coincideGenero && coincideClasificacion && coincideSala && coincideEstado;
+        });
+    }, [peliculas, salas, busqueda, filtros]);
+
+    return (
+        <>
+          <header className="dashboard-header">
+            <h1 style={styles.title}>Gestión de Películas</h1>
+          </header>
+
+          <section style={styles.wrapper}>
+
+            <FormularioRegistroPelicula
+                peliculaEditar={peliculaEditar}
+                onFinalizar={() => setPeliculaEditar(null)}
+            />
+
+            <div style={styles.toolbar}>
+                <Buscador value={busqueda} onChange={setBusqueda} />
+                <Filtros filtros={filtros} onChange={setFiltros} />
+            </div>
+
+            <TablaGestionPeliculas peliculas={peliculasFiltradas} onEditar={setPeliculaEditar} />
+        </section>
+        </>
+    );
 }
 
+const styles: Record<string, CSSProperties> = {
+    wrapper: {
+        display: "flex",
+        flexDirection: "column",
+        gap: "1.5rem",
+        padding: "2rem",
+    },
+    headerGroup: {
+        marginBottom: "0.5rem",
+    },
+    title: {
+        margin: 0,
+        fontSize: "2rem",
+        color: "var(--foreground)",
+    },
+    subtitle: {
+        color: "var(--text-muted)",
+        fontSize: "0.9rem",
+    },
+    toolbar: {
+        display: "flex",
+        flexDirection: "column",
+        gap: "1rem",
+    },
+};

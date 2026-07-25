@@ -37,7 +37,7 @@ export default function FormularioPelicula({
             {/* Sección superior: Imagen (Placeholder) e Información principal */}
             <div style={styles.movieHeader}>
                 <div style={styles.imagePlaceholder}>
-                    <span style={styles.imageIcon}>🎬</span>
+                    
                 </div>
 
                 <div style={styles.infoContainer}>

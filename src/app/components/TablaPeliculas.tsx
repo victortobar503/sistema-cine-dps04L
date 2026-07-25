@@ -7,7 +7,7 @@ import { peliculas } from "@/store/peliculas";
 interface TablaProp{
   onClick: (id:string) => void
 }
-//TODO: Agregar la fecha en el lateral derecho superior
+
 export default function TablaPelicula({onClick}: TablaProp) {
   const peliculas = useAppSelector((state) => state.pelicula);
 
@@ -15,7 +15,7 @@ export default function TablaPelicula({onClick}: TablaProp) {
 
   return (
     <div style={styles.tablaPeliculas}>
-      {peliculas.list.map((pelicula) => (
+      {peliculas.list.filter((pelicula) => pelicula.estado === true).map((pelicula) => (
         <section
           key={pelicula.id}
           className="card-container-pelicula"

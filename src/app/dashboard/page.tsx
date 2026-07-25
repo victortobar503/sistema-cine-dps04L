@@ -36,7 +36,7 @@ export default function Dashboard() {
             
             <header className="dashboard-header">
                 <h1>DASHBOARD</h1>
-                <small>Ultima act: <i>23 / 7 / 2026 8:58 am</i></small>
+                
             </header>
            <section className="dashboard-wrapper">
                 <section className="kpi-grid">

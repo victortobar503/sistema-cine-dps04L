@@ -4,6 +4,7 @@ import {  useAppDispatch, useAppSelector } from "../redux/hook";
 import ButtonGeneric from "./ButtonGeneric";
 import { apartarAsiento, desapartar } from "../redux/slices/salasSlice";
 import { Asiento } from "../types/asiento";
+import { AutoCloseModal } from "./ModalAuto";
 
 interface MapaAsientosProps {
     salaId: number;
@@ -24,6 +25,7 @@ export default function MapaAsientos({ salaId, onConfirm }: MapaAsientosProps) {
         return salaActual.asientos?.filter((asiento) =>asiento.ocupado &&( asiento.usuarioID === undefined || asiento.usuarioID === null)).map((asiento) => asiento.codigo) ?? [];
     });
 
+    const [error, setError] = useState<boolean>(false);
     
     const handleAsientoClick = (asiento: Asiento) => {
 
@@ -107,6 +109,10 @@ export default function MapaAsientos({ salaId, onConfirm }: MapaAsientosProps) {
                 <ButtonGeneric 
                     color="var(--success)" 
                     onClickBtn={() => {
+                        if(seleccionados.length <= 0){
+                            setError(true);
+                            return;
+                        }
                         seleccionados.forEach(asiento=>{
                             dispatch(apartarAsiento({
                                 id: `SALA-${salaId}-${asiento}`,
@@ -122,7 +128,13 @@ export default function MapaAsientos({ salaId, onConfirm }: MapaAsientosProps) {
                     Confirmar Selección
                 </ButtonGeneric>
             </div>
+            {error && (
+                <AutoCloseModal isOpen={true} onClose={()=>{setError(false)}} >
+                <p style={{color: "rgb(255, 0, 0)", margin: "10px"}}>Por favor, seleccione un asiento para continuar</p>
+            </AutoCloseModal>
+            )}
         </div>
+        
     );
 }
 

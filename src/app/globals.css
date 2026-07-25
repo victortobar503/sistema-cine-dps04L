@@ -40,6 +40,7 @@
 }
 html {
   height: 100%;
+  color: #fff ;
 }
 .dashboard-header{
     display: flex;
@@ -57,7 +58,9 @@ body {
   display: flex;
   flex-direction: column;
   color: var(--foreground);
-  background: var(--background);
+  background-color: #f3f5f7;
+background-image: url("https://www.transparenttextures.com/patterns/always-grey.png");
+/* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
   font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -86,7 +89,10 @@ header{
   justify-content: center;
   align-items: center;
   padding: 12px;
-  background-color: var(--primary);
+  background-color: #4d5aee;
+background-image: url("https://www.transparenttextures.com/patterns/arches.png");
+/* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+  color: #fff;
 }
 header ul{
  
@@ -208,4 +214,74 @@ footer {
 .card-container-pelicula:hover {
   transform: translateY(-8px) rotateY(5deg) scale(1.02);
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.35);
+}
+
+/* --- MODAL DETALLE DE VENTA --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(2px);
+}
+
+.modal-content {
+    background-color: var(--surface);
+    border: 1px solid var(--surface-border);
+    border-radius: 12px;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    animation: slideUp 0.2s ease-out;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    background-color: var(--primary-light);
+    border-bottom: 2px solid var(--primary);
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--foreground);
+    font-weight: bold;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: var(--text-muted);
+}
+
+.modal-close:hover {
+    color: var(--foreground);
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.ticket-grid {
+    display: flex;
+    gap: 20px;
+    align-items: center;
 }

@@ -12,6 +12,7 @@ import { Asiento } from "../types/asiento";
 import { useAppDispatch, useAppSelector } from "../redux/hook";
 import { apartarAsiento } from "../redux/slices/salasSlice";
 import FormularioReserva from "../components/FormularioReserva";
+import { AutoCloseModal } from "../components/ModalAuto";
 
 export default function RegistrarVenta() {
     const sala = useAppSelector((state)=> state.sala)
@@ -41,8 +42,10 @@ export default function RegistrarVenta() {
     };
 
     const handleReserva = (nombreUsuario: string, reservaID: string) =>{
-        console.log(nombreUsuario);
-        console.log(reservaID);
+        setPaso(5);
+    }
+
+    const handleFinish = ()=>{
         setPaso(1);
     }
     const volverAtras = () => {
@@ -111,6 +114,13 @@ export default function RegistrarVenta() {
                             </ButtonGeneric>
                         </div>
                     </>
+                )}
+                {paso === 5 && (
+                    <AutoCloseModal isOpen={true} onClose={handleFinish} >
+                        Reserva Exitosa!
+                        <hr style={{marginTop: "5px", marginBottom: "5px"}}></hr>
+                        <p style={{color: "rgb(255, 0, 0)", margin: "10px"}}>Generando ticket. . .</p>
+                    </AutoCloseModal>
                 )}
             </section>
         </>

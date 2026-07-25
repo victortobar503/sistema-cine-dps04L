@@ -5,7 +5,7 @@ export default function Header(){
     return (
         <>
             <header>
-                <ul>
+                <ul style={{color: "#fff"}}>
                     <li>
                         <Link href='/'>
                             Inicio
